@@ -41,10 +41,13 @@ float runningAngle::add(float angle)
 
 float runningAngle::wrap(float angle)
 {
-  if (_type == DEGREES) angle *= DEG_TO_RAD;
-  while (angle < -PI) angle += TWO_PI;
-  while (angle >= PI) angle -= TWO_PI;
-  if (_type == DEGREES) angle *= RAD_TO_DEG;
+  if (_type == DEGREES) {
+    while (angle < -180) angle += 360;
+    while (angle >= 180) angle -= 360;
+  } else {
+    while (angle < -PI) angle += TWO_PI;
+    while (angle >= PI) angle -= TWO_PI;
+  }
 
   return angle;
 }

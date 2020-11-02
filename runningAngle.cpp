@@ -1,7 +1,7 @@
 //
 //    FILE: runningAngle.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.0
+// VERSION: 0.1.1
 // PURPOSE: Library to average angles by means of low pass filtering with wrapping.
 //     URL: https://github.com/RobTillaart/runningAngle
 //
@@ -9,6 +9,7 @@
 //
 // HISTORY:
 // 0.1.0    2020-10-28 initial version (based on code of Edgar Bonet)
+// 0.1.1    2020-11    several improvements
 
 #include "runningAngle.h"
 

@@ -59,7 +59,7 @@ unittest(test_constructor)
 
   heading.setWeight(0.85);
   assertEqualFloat(0.85, heading.getWeight(), 0.0001);
-  assertEqualFLoat(0, heading.wrap(360), 0.0001);
+  assertEqualFloat(0, heading.wrap(360), 0.0001);
 
 }
 

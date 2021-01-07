@@ -50,13 +50,16 @@ unittest(test_constructor)
   runningAngle heading(runningAngle::DEGREES);
   
   assertEqualFloat(0, heading.getAverage(), 0.0001);
-  
+
+  fprintf(stderr, "\n");
   for (int angle = 0; angle < 10; angle++)
   {
     fprintf(stderr, "%d\t%f\n", angle, heading.getAverage());
+    heading.add(angle);
     assertEqualFloat(0, heading.getAverage(), 0.0001);
   }
 
+  fprintf(stderr, "\n");
   heading.setWeight(0.85);
   assertEqualFloat(0.85, heading.getWeight(), 0.0001);
   assertEqualFloat(0, heading.wrap(360), 0.0001);

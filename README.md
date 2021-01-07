@@ -1,6 +1,13 @@
+
+[![Arduino CI](https://github.com/RobTillaart/runningAngle/workflows/Arduino%20CI/badge.svg)](https://github.com/marketplace/actions/arduino_ci)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/RobTillaart/runningAngle/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/RobTillaart/runningAngle.svg?maxAge=3600)](https://github.com/RobTillaart/runningAngle/releases)
+
+
 # runningAngle
 
 Arduino library to calculate the running average of a series of angles.
+
 
 ## Description
 
@@ -80,6 +87,7 @@ The method returns the smoothed reading within ±180° (i.e. ±π rad).
 
 See the “examples” folder for a more complete example.
 
+
 ## Interface
 
 - **enum AngleType { DEGREES, RADIANS }** used to get type math right.
@@ -91,3 +99,9 @@ See the “examples” folder for a more complete example.
 - **float getWeight()** returns the current set weight.
 - **AngleType type()** returns DEGREES or RADIANS.
 - **float wrap(float angle)** wraps an angle to <-180..+180>  <-PI..PI> depending on the type set.
+
+
+## Operation
+
+See examples
+

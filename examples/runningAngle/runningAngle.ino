@@ -4,10 +4,12 @@
 // VERSION: 0.1.0
 // PURPOSE: demonstates the usage of the runningAngle Class
 //
-// HISTORY: 
-// 0.1.0    2020-10-28 initial version
+//  HISTORY: 
+//  0.1.0   2020-10-28 initial version
+
 
 #include "runningAngle.h"
+
 
 uint32_t start, stop;
 
@@ -26,6 +28,7 @@ void setup()
 void loop()
 {
 }
+
 
 void test0()
 {

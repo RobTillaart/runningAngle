@@ -4,14 +4,16 @@
 // VERSION: 0.1.1
 // PURPOSE: Library to average angles by means of low pass filtering with wrapping.
 //     URL: https://github.com/RobTillaart/runningAngle
-//
 // RELATED: https://github.com/RobTillaart/AverageAngle
 //
-// HISTORY:
-// 0.1.0    2020-10-28 initial version (based on code of Edgar Bonet)
-// 0.1.1    2020-11    several improvements
+
+//  HISTORY:
+//  0.1.0   2020-10-28 initial version (based on code of Edgar Bonet)
+//  0.1.1   2021-01-07  arduino-ci + unit test
+
 
 #include "runningAngle.h"
+
 
 runningAngle::runningAngle(const enum AngleType type)
 {
@@ -19,19 +21,21 @@ runningAngle::runningAngle(const enum AngleType type)
   reset();
 }
 
+
 void runningAngle::reset()
 {
   _average = 0;
-  _weight = 0.80;
-  _reset = true;
+  _weight  = 0.80;
+  _reset   = true;
 }
+ 
 
 float runningAngle::add(float angle)
 {
   if (_reset)
   {
     _average = angle;
-    _reset = false;
+    _reset   = false;
   }
   else
   {
@@ -39,6 +43,7 @@ float runningAngle::add(float angle)
   }
   return _average;
 }
+
 
 float runningAngle::wrap(float angle)
 {
@@ -49,7 +54,6 @@ float runningAngle::wrap(float angle)
     while (angle < -PI) angle += TWO_PI;
     while (angle >= PI) angle -= TWO_PI;
   }
-
   return angle;
 }
 

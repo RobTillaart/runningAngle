@@ -2,15 +2,17 @@
 //
 //    FILE: runningAngle.h
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.0
+// VERSION: 0.1.1
 // PURPOSE: Library to average angles by means of low pass filtering with wrapping.
-// HISTORY: See runningAngle.cpp
-//
 
-#include "math.h"
+
+
 #include "Arduino.h"
+#include "math.h"
 
-#define RUNNING_ANGLE_LIB_VERSION "0.1.0"
+
+#define RUNNING_ANGLE_LIB_VERSION     (F("0.1.1"))
+
 
 class runningAngle
 {

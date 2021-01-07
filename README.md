@@ -1,6 +1,13 @@
+
+[![Arduino CI](https://github.com/RobTillaart/runningAngle/workflows/Arduino%20CI/badge.svg)](https://github.com/marketplace/actions/arduino_ci)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/RobTillaart/runningAngle/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/RobTillaart/runningAngle.svg?maxAge=3600)](https://github.com/RobTillaart/runningAngle/releases)
+
+
 # runningAngle
 
 Arduino library to calculate the running average by means of low pass filtering
+
 
 ## Description
 
@@ -9,6 +16,7 @@ These angles typically come in a stream from a compass sensor or so.
 
 This library relates to https://github.com/RobTillaart/AverageAngle, 
 in fact this library is a spin off based on an issue raised by Edgar Bonet (kudo's)
+
 
 ## Interface
 
@@ -21,6 +29,7 @@ in fact this library is a spin off based on an issue raised by Edgar Bonet (kudo
 - **float getWeight()** returns the current set weight.
 - **AngleType type()** returns DEGREEES or RADIANS.
 - **float wrap(float angle)** wraps an angle to <-180..+180>  <-PI..PI> depending on the type set.
+
 
 ## Operation
 

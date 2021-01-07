@@ -33,4 +33,5 @@ in fact this library is a spin off based on an issue raised by Edgar Bonet (kudo
 
 ## Operation
 
-See example
+See examples
+

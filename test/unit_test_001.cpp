@@ -64,6 +64,12 @@ unittest(test_constructor)
   fprintf(stderr, "\n");
   heading.setWeight(0.85);
   assertEqualFloat(0.85, heading.getWeight(), 0.0001);
+  heading.setWeight(2);
+  assertEqualFloat(1, heading.getWeight(), 0.0001);
+  heading.setWeight(-5);
+  assertEqualFloat(0.001, heading.getWeight(), 0.0001);
+
+  fprintf(stderr, "\n");
   assertEqualFloat(0, heading.wrap(360), 0.0001);
 
 }

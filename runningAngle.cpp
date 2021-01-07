@@ -8,7 +8,7 @@
 //
 //  HISTORY:
 //  0.1.0   2020-10-28 initial version (based on code of Edgar Bonet)
-//  0.1.1   2021-01-07  arduino-ci + uinit test
+//  0.1.1   2021-01-07  arduino-ci + unit test
 
 
 #include "runningAngle.h"
@@ -46,11 +46,13 @@ float runningAngle::add(float angle)
 
 float runningAngle::wrap(float angle)
 {
-  if (_type == DEGREES) angle *= DEG_TO_RAD;
-  while (angle < -PI)   angle += TWO_PI;
-  while (angle >= PI)   angle -= TWO_PI;
-  if (_type == DEGREES) angle *= RAD_TO_DEG;
-
+  if (_type == DEGREES) {
+    while (angle < -180) angle += 360;
+    while (angle >= 180) angle -= 360;
+  } else {
+    while (angle < -PI) angle += TWO_PI;
+    while (angle >= PI) angle -= TWO_PI;
+  }
   return angle;
 }
 

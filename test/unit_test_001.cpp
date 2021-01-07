@@ -58,7 +58,7 @@ unittest(test_constructor)
     heading.add(angle);
     fprintf(stderr, "%d\t%f\n", angle, heading.getAverage());
   }
-  assertEqualFloat(7.750000, heading.getAverage(), 0.0001);
+  assertEqualFloat(8.750000, heading.getAverage(), 0.0001);
 
 
   fprintf(stderr, "\n");

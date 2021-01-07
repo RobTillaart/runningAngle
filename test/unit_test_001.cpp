@@ -47,7 +47,20 @@ unittest(test_constructor)
 {
   fprintf(stderr, "VERSION: %s\n", RUNNING_ANGLE_LIB_VERSION );
   
-  assertEqual(1, 1);
+  runningAngle heading(runningAngle::DEGREES);
+  
+  assertEqualFloat(0, heading.getAverage(), 0.0001);
+  
+  for (int angle = 0; angle < 10; angle++)
+  {
+    fprintf(stderr, "%d\t%f\n", angle, heading.getAverage());
+    assertEqualFloat(0, heading.getAverage(), 0.0001);
+  }
+
+  heading.setWeight(0.85);
+  assertEqualFloat(0.85, heading.getWeight(), 0.0001);
+  assertEqualFLoat(0, heading.wrap(360), 0.0001);
+
 }
 
 unittest_main()

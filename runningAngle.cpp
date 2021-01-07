@@ -6,6 +6,7 @@
 //     URL: https://github.com/RobTillaart/runningAngle
 // RELATED: https://github.com/RobTillaart/AverageAngle
 //
+
 //  HISTORY:
 //  0.1.0   2020-10-28 initial version (based on code of Edgar Bonet)
 //  0.1.1   2021-01-07  arduino-ci + unit test

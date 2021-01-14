@@ -40,6 +40,7 @@ raised by Edgar Bonet.
 [AverageAngle]: https://github.com/RobTillaart/AverageAngle
 [an issue]: https://github.com/RobTillaart/AverageAngle/issues/1
 
+
 ## Smoothing coefficient
 
 The output of the filter is efficiently computed as a weighted average
@@ -56,6 +57,7 @@ filter's output is a just a copy of its input.
 The filter has a smoothing performance similar to a simple running
 average over N = 2/α − 1 samples. For example, α = 0.2 is similar to
 averaging over the last 9 samples.
+
 
 ## Usage
 
@@ -105,3 +107,4 @@ See the “examples” folder for a more complete example.
 
 See examples
 
+Note: on windows ALT-0178 = ² degree symbol.

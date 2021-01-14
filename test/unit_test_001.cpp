@@ -97,10 +97,16 @@ unittest(test_wrap)
   assertEqualFloat(0, heading.wrap(0), 0.0001);
   assertEqualFloat(0, heading.wrap(360), 0.0001);
   assertEqualFloat(1, heading.wrap(361), 0.0001);
+  assertEqualFloat(179, heading.wrap(179), 0.0001);
+  assertEqualFloat(-180, heading.wrap(180), 0.0001);
+  assertEqualFloat(-179, heading.wrap(181), 0.0001);
+  assertEqualFloat(-179, heading.wrap(-179), 0.0001);
+  assertEqualFloat(-180, heading.wrap(-180), 0.0001);
+  assertEqualFloat(179, heading.wrap(-181), 0.0001);
   assertEqualFloat(1, heading.wrap(721), 0.0001);
-  assertEqualFloat(359, heading.wrap(-1), 0.0001);
-  assertEqualFloat(359, heading.wrap(-361), 0.0001);
-  assertEqualFloat(359, heading.wrap(-721), 0.0001);
+  assertEqualFloat(-1, heading.wrap(-1), 0.0001);
+  assertEqualFloat(-1, heading.wrap(-361), 0.0001);
+  assertEqualFloat(-1, heading.wrap(-721), 0.0001);
 }
 
 

@@ -107,4 +107,3 @@ See the “examples” folder for a more complete example.
 
 See examples
 
-Note: on windows ALT-0178 = ² degree symbol.

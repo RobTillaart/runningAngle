@@ -2,7 +2,7 @@
 //    FILE: runningAngle.ino
 //  AUTHOR: Rob Tillaart
 // VERSION: 0.1.0
-// PURPOSE: demonstates the usage of the runningAngle Class
+// PURPOSE: demonstrates the usage of the runningAngle Class
 //
 //  HISTORY: 
 //  0.1.0   2020-10-28 initial version

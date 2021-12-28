@@ -1,11 +1,7 @@
 //
 //    FILE: runningAngle.ino
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.0
 // PURPOSE: demonstrates the usage of the runningAngle Class
-//
-//  HISTORY: 
-//  0.1.0   2020-10-28 initial version
 
 
 #include "runningAngle.h"
@@ -123,3 +119,4 @@ void test3()
 
 
 // -- END OF FILE --
+

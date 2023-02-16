@@ -43,6 +43,16 @@ raised by Edgar Bonet.
 [an issue]: https://github.com/RobTillaart/AverageAngle/issues/1
 
 
+#### Related
+
+- https://github.com/RobTillaart/Angle
+- https://github.com/RobTillaart/AngleConvertor
+- https://github.com/RobTillaart/AverageAngle
+- https://github.com/RobTillaart/RunningAngle
+- https://github.com/RobTillaart/RunningAverage
+- https://github.com/RobTillaart/RunningMedian
+
+
 ## Smoothing coefficient
 
 The output of the filter is efficiently computed as a weighted average
@@ -89,14 +99,24 @@ float smoothed_heading = my_filter.add(heading);
 
 The method returns the smoothed reading within ± 180° (i.e. ± π rad).
 
+The returned value is easily mapped upon 0..360 by adding 360 degrees ( π )
+to the average. Other mappings including scaling are possible.
+To support mapping the library has added midPoint functions in 0.2.0.
+See below.
+
+
 See the “examples” folder for a more complete example.
 
-Degree character = ALT-0176
+Degree character = ALT-0176 (windows)
 
 
 ## Interface
 
-### AngleType
+```cpp
+#include "runningAngle.h"
+```
+
+#### AngleType
 
 - **enum AngleType { DEGREES, RADIANS, GRADIANS }** used to get type math right.
 
@@ -110,20 +130,45 @@ There also exists a type milli-radians which is effectively the
 same as RADIANS \* 1000. It won't be supported. 
 
 
-### runningAngle
+#### runningAngle
 
 - **runningAngle(AngleType type = DEGREES)** constructor, default to DEGREES
 - **float add(float angle)** adds value using a certain weight, 
 except the first value after a reset is used as initial value. 
 The **add()** function returns the new average.
-- **void reset()** resets the internal average and weight to start clean again. 
+- **void reset()** resets the internal average to 0 and weight to start "clean" again. 
 If needed one should call **setWeight()** again!
 - **float getAverage()** returns the current average value.
-- **void setWeight(float weight)** sets the weight of the new added value. 
-Value will be constrained between 0.001 and 1.00
+- **void setWeight(float weight = DEFAULT_WEIGHT)** sets the weight of the new added value. 
+Value will be constrained between 0.001 and 1.00.
 - **float getWeight()** returns the current set weight.
+Default weight = DEFAULT_WEIGHT == 0.80.
 - **AngleType type()** returns DEGREES, RADIANS or GRADIANS.
-- **float wrap(float angle)** wraps an angle to <-180..+180>  <-PI..PI> <-200..200> depending on the type set.
+- **float wrap(float angle)** wraps an angle to <-180..+180>  <-PI..PI> 
+or <-200..200> depending on the type set.
+
+
+#### Experimental midPoint
+
+Since 0.2.0 the midpoint of the average can be changed.
+Default is still 0 resulting in an average of -180..180 degrees.
+As this is not optimal for all applications one can change the midpoint
+to any value, however in practice it should be between -360 and 360.
+(The library does not enforce this)
+
+Setting the midPoint to:
+- 180 will give averages of 0..360 
+- 0 will give averages of -180..180
+- 90 will give averages of  -90..270
+
+In other AngleTypes one must set the midpoint accordingly e.g. to PI or 200.
+
+Current midPoint math is applied on the internal math in **getAverage()** only.
+This allows to change the midPoint run time without a need for reset.
+
+
+- **void setMidPoint(float midPoint = DEFAULT_MIDPOINT)** setting the midpoint, default = 0 (== backwards compatible)
+- **float getMidPoint()** returns the current midPoint. Default 0.
 
 
 ## Operation
@@ -133,10 +178,27 @@ See examples
 
 ## Future
 
-- get some numbers about the noise in the angles (stats on the delta?)
-- runtime change of type
-  - conversion 
+#### Must
+
+- improve documentation
+- test midPoint
+
+#### Should
+
+- optimize**wrap()** to be generic => no loop per type.
+- optimize midpoint math
+  - work with range (low, high) and oneTurn = 360.0?
+
+#### Could
+
+- add examples.
+- get statistics about the noise in the angles (stats on the delta?)
+
+#### Wont
+
+- runtime change of type 
+  - no, too specific scenario.
+  - conversion needed?
   - add mixed types.  45° + 3 radians = ??
-
-
+  ==> user can do this. 
 

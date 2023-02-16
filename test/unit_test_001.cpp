@@ -45,6 +45,13 @@ unittest_teardown()
 }
 
 
+unittest(test_constants)
+{
+  assertEqualFloat(0.80, DEFAULT_WEIGHT,   0.0001);
+  assertEqualFloat(0.00, DEFAULT_MIDPOINT, 0.0001);
+}
+
+
 unittest(test_constructor_1)
 {
   runningAngle heading(runningAngle::DEGREES);
@@ -125,6 +132,25 @@ unittest(test_wrap)
 }
 
 
+unittest(test_midPoint)
+{
+  runningAngle heading(runningAngle::DEGREES);
+
+  for (int i = 0; i <= 360; i+= 45)
+  {
+    heading.setMidPoint(i);
+    assertEqualFloat(i, heading.getMidPoint(), 0.0001);
+  }
+
+  assertEqualFloat(0, heading.getAverage(), 0.0001);
+
+  heading.setMidPoint(270);
+  assertEqualFloat(360, heading.getAverage(), 0.0001);
+}
+
+
 unittest_main()
 
-// --------
+
+//  -- END OF FILE --
+

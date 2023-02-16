@@ -46,8 +46,8 @@ float runningAngle::getAverage()
 {
   if (_mode == 0)       return _average;
   if (_average >= 0)    return _average;
-  if (_type == DEGREES) return _average + 180;
-  if (_type == RADIANS) return _average + PI;
+  if (_type == DEGREES) return _average + 360;
+  if (_type == RADIANS) return _average + TWO_PI;
   //  GRADIANS
   return _average + 200;
 }

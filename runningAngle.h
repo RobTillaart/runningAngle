@@ -44,11 +44,11 @@ public:
   void setMode0() { _mode = 0; };
 
 private:
-  enum    AngleType _type;
-  float   _average = 0;
-  float   _weight;
-  bool    _reset;
-  uint8_t _mode = 0;
+  enum     AngleType _type;
+  float    _average = 0;
+  float    _weight;
+  bool     _reset;
+  uint16_t _mode = 0;
 };
 
 

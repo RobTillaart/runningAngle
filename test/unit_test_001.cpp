@@ -112,7 +112,7 @@ unittest(test_weight)
 }
 
 
-unittest(test_wrap_0)
+unittest(test_wrap)
 {
   runningAngle heading(runningAngle::DEGREES);
   
@@ -134,25 +134,29 @@ unittest(test_wrap_0)
 }
 
 
-unittest(test_wrap_1)
+unittest(test_mode_0)
 {
   runningAngle heading(runningAngle::DEGREES);
-  
-  heading.setMode1();
 
-  assertEqualFloat(0, heading.wrap(0), 0.0001);
-  assertEqualFloat(0, heading.wrap(360), 0.0001);
-  assertEqualFloat(1, heading.wrap(361), 0.0001);
-  assertEqualFloat(179, heading.wrap(179), 0.0001);
-  assertEqualFloat(180, heading.wrap(180), 0.0001);
-  assertEqualFloat(181, heading.wrap(181), 0.0001);
-  assertEqualFloat(181, heading.wrap(-179), 0.0001);
-  assertEqualFloat(180, heading.wrap(-180), 0.0001);
-  assertEqualFloat(179, heading.wrap(-181), 0.0001);
-  assertEqualFloat(1, heading.wrap(721), 0.0001);
-  assertEqualFloat(359, heading.wrap(-1), 0.0001);
-  assertEqualFloat(359, heading.wrap(-361), 0.0001);
-  assertEqualFloat(359, heading.wrap(-721), 0.0001);
+  for (int i = 0; i < 360; i+= 20)
+  {
+    heading.reset();
+    heading.setMode1();
+    assertEqualFloat(i, heading.add(i), 0.0001);
+  }
+}
+
+
+unittest(test_mode_1)
+{
+  runningAngle heading(runningAngle::DEGREES);
+
+  for (int i = 0; i < 360; i+= 20)
+  {
+    heading.reset();
+    heading.setMode1();
+    if (i < 180) assertEqualFloat(i, heading.add(i), 0.0001);
+    else         assertEqualFloat(i-360, heading.add(i), 0.0001);
 }
 
 

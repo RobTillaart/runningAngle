@@ -67,7 +67,7 @@ void setup() {
 
   long total_time = 0;
   for (int i = 0; i <= iterations; i++) {
-    float angle = 130.0 + (rand() + 0.5) / (RAND_MAX + 1.0) * ANGLE_MAX;
+    float angle = (rand() + 0.5) / (RAND_MAX + 1.0) * ANGLE_MAX;
     angle = unoptimize(angle);
 
     // Timed part.

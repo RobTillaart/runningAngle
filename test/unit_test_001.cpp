@@ -48,7 +48,6 @@ unittest_teardown()
 unittest(test_constants)
 {
   assertEqualFloat(0.80, DEFAULT_WEIGHT,   0.0001);
-  assertEqualFloat(0.00, DEFAULT_MIDPOINT, 0.0001);
 }
 
 
@@ -141,8 +140,9 @@ unittest(test_mode_0)
   for (int i = 0; i < 360; i+= 20)
   {
     heading.reset();
-    heading.setMode1();
-    assertEqualFloat(i, heading.add(i), 0.0001);
+    heading.setMode0();
+    if (i < 180) assertEqualFloat(i, heading.add(i), 0.0001);
+    else         assertEqualFloat(i-360, heading.add(i), 0.0001);
   }
 }
 
@@ -155,8 +155,7 @@ unittest(test_mode_1)
   {
     heading.reset();
     heading.setMode1();
-    if (i < 180) assertEqualFloat(i, heading.add(i), 0.0001);
-    else         assertEqualFloat(i-360, heading.add(i), 0.0001);
+    assertEqualFloat(i, heading.add(i), 0.0001);
   }
 }
 

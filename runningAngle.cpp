@@ -37,8 +37,25 @@ float runningAngle::add(float angle)
   {
     _average = wrap(_average + _weight * wrap(angle - _average));
   }
+  if (_midPoint == 0) return _average;
   return getAverage();
 }
+
+
+//  experimental
+//  faster but does not return average.
+// void runningAngle::fastAdd(float angle)
+// {
+  // if (_reset)
+  // {
+    // _average = wrap(angle);
+    // _reset   = false;
+  // }
+  // else
+  // {
+    // _average = wrap(_average + _weight * wrap(angle - _average));
+  // }
+// }
 
 
 float runningAngle::getAverage()

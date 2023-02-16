@@ -29,6 +29,7 @@ public:
 
   //  first value added will not use the weight to set the initial value.
   float  add(float angle);  //  returns new average
+  //  void   fastAdd(float angle);  //  returns nothing - experimental
   void   reset();
   float  getAverage();
 

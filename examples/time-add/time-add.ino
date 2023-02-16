@@ -57,6 +57,8 @@ runningAngle heading(runningAngle::ANGLE_UNIT);
 void setup() {
     Serial.begin(9600);
 
+    heading.setMidPoint(0);
+
     // Set Timer 1 to count in normal mode at the full CPU frequency.
     // The timer value, TCNT1, can then be used as a clock with
     // single-cycle resolution.

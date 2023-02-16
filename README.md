@@ -79,15 +79,16 @@ First, create a filter as an instance of `runningAngle`:
 runningAngle my_filter(runningAngle::DEGREES);
 ```
 
-The parameter of the constructor should be either
-`runningAngle::DEGREES` or `runningAngle::RADIANS`. It is optional and
-defaults to degrees.
+The parameter of the constructor should be
+`runningAngle::DEGREES`, `runningAngle::RADIANS` or `runningAngle::GRADIANS`. 
+This parameter is optional and defaults to degrees.
 
 Then, set the “weight” smoothing coefficient:
 
 ```c++
 my_filter.setWeight(0.2);
 ```
+Note: the weight defaults to 0.80 so no need to set 
 
 Finally, within the main sketch's loop, feed the raw angle readings to
 the filter's `add()` method:
@@ -97,17 +98,16 @@ float heading = get_a_compass_reading_somehow();
 float smoothed_heading = my_filter.add(heading);
 ```
 
-The method returns the smoothed reading within ± 180° (i.e. ± π rad).
+The method returns the smoothed reading within ± 180° (i.e. ± π radians) by default.
 
 The returned value is easily mapped upon 0..360 by adding 360 degrees ( π )
-to the average. Other mappings including scaling are possible.
-To support mapping the library has added midPoint functions in 0.2.0.
-See below.
+to the average. 
+Other mappings including scaling are of course possible.
+To support mapping within the library has added **setMidPoint()** function since 0.2.0.
+This shifts the range from ± 180° e.g. to -90°..270°, see below.
+See also the “examples” folder.
 
-
-See the “examples” folder for a more complete example.
-
-Degree character = ALT-0176 (windows)
+Note: Degree character ° = ALT-0176 (windows)
 
 
 ## Interface
@@ -125,14 +125,16 @@ A full circle is defined as:
 - RADIANS = 2 π = 6.283...
 - GRADIANS = 400°
 
-GRADIANS are sometimes called GON. 
+GRADIANS are sometimes called GON.
+
 There also exists a type milli-radians which is effectively the 
-same as RADIANS \* 1000. It won't be supported. 
+same as RADIANS \* 1000. This won't be supported.
+Other exotic angle-types can be converted here - https://github.com/RobTillaart/AngleConvertor
 
 
 #### runningAngle
 
-- **runningAngle(AngleType type = DEGREES)** constructor, default to DEGREES
+- **runningAngle(AngleType type = DEGREES)** constructor, default to DEGREES.
 - **float add(float angle)** adds value using a certain weight, 
 except the first value after a reset is used as initial value. 
 The **add()** function returns the new average.
@@ -150,25 +152,42 @@ or <-200..200> depending on the type set.
 
 #### Experimental midPoint
 
-Since 0.2.0 the midpoint of the average can be changed.
-Default is still 0 resulting in an average of -180..180 degrees.
-As this is not optimal for all applications one can change the midpoint
-to any value, however in practice it should be between -360 and 360.
+Since 0.2.0 the midPoint of the average can be changed.
+Default is still 0 resulting in an average of -180°..180° degrees.
+As this is not optimal for all applications one can change the midPoint
+to any value, however in practice the midPoint should be between -360° and 360°.
 (The library does not enforce this)
 
 Setting the midPoint to:
-- 180 will give averages of 0..360 
-- 0 will give averages of -180..180
-- 90 will give averages of  -90..270
+- 180 will give averages between 0°..360°
+- 0 will give averages between -180°..180°  (default)
+- 90 will give averages between  -90°..270°
 
-In other AngleTypes one must set the midpoint accordingly e.g. to PI or 200.
+In other AngleTypes one must set the midPoint accordingly e.g. to PI or 200.
 
 Current midPoint math is applied on the internal math in **getAverage()** only.
 This allows to change the midPoint run time without a need for reset.
 
 
-- **void setMidPoint(float midPoint = DEFAULT_MIDPOINT)** setting the midpoint, default = 0 (== backwards compatible)
+- **void setMidPoint(float midPoint = DEFAULT_MIDPOINT)** setting the midPoint, 
+default = DEFAULT_MIDPOINT == 0 ==> backwards compatible.
 - **float getMidPoint()** returns the current midPoint. Default 0.
+
+## Performance add()
+
+Being the most important worker function, doing float math.
+(based on time-add.ino on UNO)
+
+|  version  |  midPoint  |  CPU cycles  |  us per add  |  relative  |
+|:---------:|:----------:|-------------:|-------------:|-----------:|
+|   0.1.5   |      0     |      742     |  46.375 us   |   100%     |
+|   0.2.0   |      0     |      738     |  46.125 us   |   100%     |
+|   0.2.0   |    180     |     1136     |  71.000 us   |   153%     |
+
+The current implementation of "midPoint" has a substantial performance
+impact. Needs investigation how to optimize this. 
+A simpler midPoint could only support 2 ranges -180..180 and 0..360.
+That would definitely be faster but also less flexible.
 
 
 ## Operation
@@ -180,22 +199,29 @@ See examples
 
 #### Must
 
-- improve documentation
-- test midPoint
+- improve documentation.
+- optimize midPoint math.
+  - work with range (low, high) and oneTurn (360.0 TWOPI etc)?
+  - two ranges only?
+- test midPoint.
 
 #### Should
 
 - optimize**wrap()** to be generic => no loop per type.
-- optimize midpoint math
-  - work with range (low, high) and oneTurn = 360.0?
+
 
 #### Could
 
 - add examples.
-- get statistics about the noise in the angles (stats on the delta?)
+- get statistics about the noise in the angles (stats on the delta?).
+- should **add()** return the average? (yes)
+  - or make a **fastAdd()** that doesn't?
+- update unit tests.
+
 
 #### Wont
 
+- derived class for degrees only? (max optimization)
 - runtime change of type 
   - no, too specific scenario.
   - conversion needed?

@@ -132,7 +132,7 @@ unittest(test_wrap)
 }
 
 
-unittest(test_midPoint)
+unittest(test_midPoint_I)
 {
   runningAngle heading(runningAngle::DEGREES);
 
@@ -141,6 +141,12 @@ unittest(test_midPoint)
     heading.setMidPoint(i);
     assertEqualFloat(i, heading.getMidPoint(), 0.0001);
   }
+}
+
+
+unittest(test_midPoint_II)
+{
+  runningAngle heading(runningAngle::DEGREES);
 
   assertEqualFloat(0, heading.getAverage(), 0.0001);
 

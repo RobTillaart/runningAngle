@@ -157,32 +157,9 @@ unittest(test_mode_1)
     heading.setMode1();
     if (i < 180) assertEqualFloat(i, heading.add(i), 0.0001);
     else         assertEqualFloat(i-360, heading.add(i), 0.0001);
-}
-
-
-/*
-unittest(test_midPoint_I)
-{
-  runningAngle heading(runningAngle::DEGREES);
-
-  for (int i = -315; i < 360; i+= 45)
-  {
-    heading.setMidPoint(i);
-    assertEqualFloat(i, heading.getMidPoint(), 0.0001);
   }
 }
 
-
-unittest(test_midPoint_II)
-{
-  runningAngle heading(runningAngle::DEGREES);
-
-  assertEqualFloat(0, heading.getAverage(), 0.0001);
-
-  heading.setMidPoint(270);
-  assertEqualFloat(360, heading.getAverage(), 0.0001);
-}
-*/
 
 unittest_main()
 

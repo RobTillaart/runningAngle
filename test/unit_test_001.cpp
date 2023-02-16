@@ -136,7 +136,7 @@ unittest(test_midPoint)
 {
   runningAngle heading(runningAngle::DEGREES);
 
-  for (int i = 0; i <= 360; i+= 45)
+  for (int i = -315; i < 360; i+= 45)
   {
     heading.setMidPoint(i);
     assertEqualFloat(i, heading.getMidPoint(), 0.0001);

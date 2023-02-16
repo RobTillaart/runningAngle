@@ -43,6 +43,16 @@ raised by Edgar Bonet.
 [an issue]: https://github.com/RobTillaart/AverageAngle/issues/1
 
 
+#### Related
+
+- https://github.com/RobTillaart/Angle
+- https://github.com/RobTillaart/AngleConvertor
+- https://github.com/RobTillaart/AverageAngle
+- https://github.com/RobTillaart/RunningAngle
+- https://github.com/RobTillaart/RunningAverage
+- https://github.com/RobTillaart/RunningMedian
+
+
 ## Smoothing coefficient
 
 The output of the filter is efficiently computed as a weighted average
@@ -69,15 +79,16 @@ First, create a filter as an instance of `runningAngle`:
 runningAngle my_filter(runningAngle::DEGREES);
 ```
 
-The parameter of the constructor should be either
-`runningAngle::DEGREES` or `runningAngle::RADIANS`. It is optional and
-defaults to degrees.
+The parameter of the constructor should be
+`runningAngle::DEGREES`, `runningAngle::RADIANS` or `runningAngle::GRADIANS`. 
+This parameter is optional and defaults to degrees.
 
 Then, set the “weight” smoothing coefficient:
 
 ```c++
 my_filter.setWeight(0.2);
 ```
+Note: the weight defaults to 0.80 so no need to set 
 
 Finally, within the main sketch's loop, feed the raw angle readings to
 the filter's `add()` method:
@@ -87,16 +98,22 @@ float heading = get_a_compass_reading_somehow();
 float smoothed_heading = my_filter.add(heading);
 ```
 
-The method returns the smoothed reading within ± 180° (i.e. ± π rad).
+The method returns the smoothed reading within ± 180° (i.e. ± π radians) by default.
 
-See the “examples” folder for a more complete example.
+The returned value is easily mapped upon 0..360 by adding 360 degrees ( 2π )
+to the average if the average < 0.
+Other mappings including scaling are of course possible.
 
-Degree character = ALT-0176
+Note: Degree character ° = ALT-0176 (windows)
 
 
 ## Interface
 
-### AngleType
+```cpp
+#include "runningAngle.h"
+```
+
+#### AngleType
 
 - **enum AngleType { DEGREES, RADIANS, GRADIANS }** used to get type math right.
 
@@ -105,25 +122,48 @@ A full circle is defined as:
 - RADIANS = 2 π = 6.283...
 - GRADIANS = 400°
 
-GRADIANS are sometimes called GON. 
+GRADIANS are sometimes called GON.
+
 There also exists a type milli-radians which is effectively the 
-same as RADIANS \* 1000. It won't be supported. 
+same as RADIANS \* 1000. This won't be supported.
+Other exotic angle-types can be converted here - https://github.com/RobTillaart/AngleConvertor
 
 
-### runningAngle
+#### runningAngle
 
-- **runningAngle(AngleType type = DEGREES)** constructor, default to DEGREES
+- **runningAngle(AngleType type = DEGREES)** constructor, default to DEGREES.
 - **float add(float angle)** adds value using a certain weight, 
 except the first value after a reset is used as initial value. 
 The **add()** function returns the new average.
-- **void reset()** resets the internal average and weight to start clean again. 
+- **void reset()** resets the internal average to 0 and weight to start "clean" again. 
 If needed one should call **setWeight()** again!
 - **float getAverage()** returns the current average value.
-- **void setWeight(float weight)** sets the weight of the new added value. 
-Value will be constrained between 0.001 and 1.00
+- **void setWeight(float weight = DEFAULT_WEIGHT)** sets the weight of the new added value. 
+Value will be constrained between 0.001 and 1.00.
 - **float getWeight()** returns the current set weight.
+Default weight = DEFAULT_WEIGHT == 0.80.
 - **AngleType type()** returns DEGREES, RADIANS or GRADIANS.
-- **float wrap(float angle)** wraps an angle to <-180..+180>  <-PI..PI> <-200..200> depending on the type set.
+- **float wrap(float angle)** wraps an angle to <-180..+180>  <-PI..PI> 
+or <-200..200> depending on the type set.
+
+
+#### Mode 
+
+- **void setMode0()**  -180..180
+- **void setMode1()**     0..360
+
+
+## Performance add()
+
+Being the most important worker function, doing float math.
+(based on time-add.ino on UNO)
+
+|  version  |  mode  |  CPU cycles  |  us per add  |  relative  |
+|:---------:|:------:|-------------:|-------------:|-----------:|
+|   0.1.5   |    0   |      742     |  46.375 us   |   100%     |
+|   0.2.0   |    0   |              |  123456 us   |   xxx%     |
+|   0.2.0   |    1   |              |  123456 us   |   xxx%     |
+
 
 
 ## Operation
@@ -133,10 +173,30 @@ See examples
 
 ## Future
 
-- get some numbers about the noise in the angles (stats on the delta?)
-- runtime change of type
-  - conversion 
+#### Must
+
+- improve documentation.
+
+#### Should
+
+- optimize**wrap()** to be generic => no loop per type.
+
+
+#### Could
+
+- add examples.
+- get statistics about the noise in the angles (stats on the delta?).
+- should **add()** return the average? (yes)
+  - or make a **fastAdd()** that doesn't?
+- update unit tests.
+
+
+#### Wont
+
+- derived class for degrees only? (max optimization)
+- runtime change of type 
+  - no, too specific scenario.
+  - conversion needed?
   - add mixed types.  45° + 3 radians = ??
-
-
+  ==> user can do this. 
 

@@ -16,8 +16,6 @@
 
 
 const float DEFAULT_WEIGHT   = 0.80;
-const float DEFAULT_MIDPOINT = 0;
-
 
 
 class runningAngle
@@ -40,8 +38,8 @@ public:
   float  wrap(float angle);
 
   //  -180 ..180  or  0..360
-  void setMode1() { _mode = 1; };
-  void setMode0() { _mode = 0; };
+  void setMode0() { _mode = 0; };  //  -180..180
+  void setMode1() { _mode = 1; };  //     0..360
 
 private:
   enum     AngleType _type;

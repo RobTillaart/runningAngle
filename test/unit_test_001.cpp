@@ -45,6 +45,13 @@ unittest_teardown()
 }
 
 
+unittest(test_constants)
+{
+  assertEqualFloat(0.80, DEFAULT_WEIGHT,   0.0001);
+  assertEqualFloat(0.00, DEFAULT_MIDPOINT, 0.0001);
+}
+
+
 unittest(test_constructor_1)
 {
   runningAngle heading(runningAngle::DEGREES);
@@ -105,9 +112,11 @@ unittest(test_weight)
 }
 
 
-unittest(test_wrap)
+unittest(test_wrap_0)
 {
   runningAngle heading(runningAngle::DEGREES);
+  
+  heading.setMode0();
 
   assertEqualFloat(0, heading.wrap(0), 0.0001);
   assertEqualFloat(0, heading.wrap(360), 0.0001);
@@ -125,6 +134,54 @@ unittest(test_wrap)
 }
 
 
+unittest(test_wrap_1)
+{
+  runningAngle heading(runningAngle::DEGREES);
+  
+  heading.setMode1();
+
+  assertEqualFloat(0, heading.wrap(0), 0.0001);
+  assertEqualFloat(0, heading.wrap(360), 0.0001);
+  assertEqualFloat(1, heading.wrap(361), 0.0001);
+  assertEqualFloat(179, heading.wrap(179), 0.0001);
+  assertEqualFloat(180, heading.wrap(180), 0.0001);
+  assertEqualFloat(181, heading.wrap(181), 0.0001);
+  assertEqualFloat(181, heading.wrap(-179), 0.0001);
+  assertEqualFloat(180, heading.wrap(-180), 0.0001);
+  assertEqualFloat(179, heading.wrap(-181), 0.0001);
+  assertEqualFloat(1, heading.wrap(721), 0.0001);
+  assertEqualFloat(359, heading.wrap(-1), 0.0001);
+  assertEqualFloat(359, heading.wrap(-361), 0.0001);
+  assertEqualFloat(359, heading.wrap(-721), 0.0001);
+}
+
+
+/*
+unittest(test_midPoint_I)
+{
+  runningAngle heading(runningAngle::DEGREES);
+
+  for (int i = -315; i < 360; i+= 45)
+  {
+    heading.setMidPoint(i);
+    assertEqualFloat(i, heading.getMidPoint(), 0.0001);
+  }
+}
+
+
+unittest(test_midPoint_II)
+{
+  runningAngle heading(runningAngle::DEGREES);
+
+  assertEqualFloat(0, heading.getAverage(), 0.0001);
+
+  heading.setMidPoint(270);
+  assertEqualFloat(360, heading.getAverage(), 0.0001);
+}
+*/
+
 unittest_main()
 
-// --------
+
+//  -- END OF FILE --
+

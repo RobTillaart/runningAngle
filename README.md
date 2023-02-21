@@ -149,8 +149,8 @@ or <-200..200> depending on the type set.
 
 #### Mode 
 
-- **void setMode0()**  -180..180
-- **void setMode1()**     0..360
+- **void setMode0()** average interval = \[-180..180>
+- **void setMode1()** average interval = \[0..360>
 
 
 ## Performance add()
@@ -160,15 +160,9 @@ Being the most important worker function, doing float math.
 
 |  version  |  mode  |  CPU cycles  |  us per add  |  relative  |
 |:---------:|:------:|-------------:|-------------:|-----------:|
-|   0.1.5   |    0   |      742     |  46.375 us   |   100%     |
-|   0.2.0   |    0   |              |  123456 us   |   xxx%     |
-|   0.2.0   |    1   |              |  123456 us   |   xxx%     |
-
-
-
-## Operation
-
-See examples
+|   0.1.5   |    0   |      681     |  42.5625 us  |   100%     |
+|   0.2.0   |    0   |      681     |  42.5625 us  |   100%     |
+|   0.2.0   |    1   |      681     |  42.5625 us  |   100%     |
 
 
 ## Future

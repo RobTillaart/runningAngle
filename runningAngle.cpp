@@ -20,7 +20,7 @@ runningAngle::runningAngle(const enum AngleType type)
 void runningAngle::reset()
 {
   _average  = 0;
-  _weight   = DEFAULT_WEIGHT;
+  _weight   = RA_DEFAULT_WEIGHT;
   _reset    = true;
 }
 

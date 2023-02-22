@@ -62,7 +62,7 @@ bool runningAngle::setWeight(float w)
   }
   if (w > RA_MAX_WEIGHT)
   {
-    weight = RA_MAX_WEIGHT;
+    _weight = RA_MAX_WEIGHT;
     return false;
   }
   _weight = w;

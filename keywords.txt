@@ -18,6 +18,7 @@ type	KEYWORD2
 wrap	KEYWORD2
 
 setMode0	KEYWORD2
+setMode1	KEYWORD2
 getMode1	KEYWORD2
 
 

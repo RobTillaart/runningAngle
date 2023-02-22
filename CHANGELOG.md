@@ -6,10 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [0.2.0] - 2023-02-16
-- add **void setMode0()** 
-- add **void setMode1()** 
-- add DEFAULT_WEIGHT to **setWeight()**
+## [0.2.0] - 2023-02-22
+- add **void setMode0()** ==> -180..180
+- add **void setMode1()** ==> 0..360
+- add **uint8_t getMode()** return 0 or 1.
+- add RA_DEFAULT_WEIGHT to **setWeight()**
+- change return type of **setWeight()** to bool (return false if clipped).
+- add RA_MIN_WEIGHT + RA_MAX_WEIGHT as constants
 - add examples
 - update readme.md
 - move code from .h to .cpp

@@ -53,9 +53,20 @@ float runningAngle::getAverage()
 }
 
 
-void runningAngle::setWeight(float w)
+bool runningAngle::setWeight(float w)
 {
-  _weight = constrain(w, 0.001, 1);
+  if (w < RA_MIN_WEIGHT)
+  {
+    _weight = RA_MIN_WEIGHT;
+    return false;
+  }
+  if (w > RA_MAX_WEIGHT)
+  {
+    weight = RA_MAX_WEIGHT;
+    return false;
+  }
+  _weight = w;
+  return true;
 }
 
 
@@ -89,6 +100,26 @@ float runningAngle::wrap(float angle)
     while (angle >= +200) angle -= 400;
   }
   return angle;
+}
+
+
+//  -180..180
+void runningAngle::setMode0()
+{
+  _mode = 0;
+}
+
+
+//     0..360
+void runningAngle::setMode1()
+{
+  _mode = 1;
+}
+
+
+uint8_t runningAngle::getMode()
+{
+  return _mode;
 }
 
 
